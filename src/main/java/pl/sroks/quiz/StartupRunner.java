@@ -32,6 +32,6 @@ private QuizDataService quizDataService;
             //log.info("Retrieved player: " + player);
 
         quizDataService.getQuizCategories();
-        quizDataService.getQuizQuestions();
+       // quizDataService.getQuizQuestions();
         }
     }
