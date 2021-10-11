@@ -1,6 +1,6 @@
 #FileLock
-#Sun Oct 10 19:05:48 CEST 2021
-server=192.168.1.12\:56954
+#Mon Oct 11 11:23:19 CEST 2021
+server=192.168.1.12\:50660
 hostName=LAPTOP-N24KVFEF.home
 method=file
-id=17c6b2ae5d21b1c8feb19b6defb5f3e533affd3c739
+id=17c6ea9da7ac87d0591322b8a0588d161e79a31985a

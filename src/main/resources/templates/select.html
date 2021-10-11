@@ -10,11 +10,9 @@
 
     <title>Quiz Application - pick options</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="css/scrolling-nav.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
 
 </head>
 
@@ -55,6 +53,20 @@
                         </div>
                     </th:block>
                 </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <h4>Category:</h4>
+                        <th:block th:each="category : ${categories}">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="categoryRadioOptions"
+                                       th:id="'category_' + ${category.getId()}" th:value="${category.getId()}" th:field="*{categoryId}">
+                                <label class="form-check-label" th:for="'difficulty_' + ${category.getId()}"
+                                       th:text="${category.getName()}">
+                                </label>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary">Play!</button>
                 <h4>Questions:</h4>
                 <label for="numberOfQuestionsInput">Number: </label>
@@ -84,16 +96,9 @@
     <!-- /.container -->
 </footer>
 
-<!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Plugin JavaScript -->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom JavaScript for this theme -->
-<script src="js/scrolling-nav.js"></script>
-
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
 </body>
-
 </html>
