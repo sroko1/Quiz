@@ -30,7 +30,7 @@ public class QuestionsDto {
         @JsonProperty("incorrect_answers")
         private List<String> incorrectAnswers;
 
-        public void setQuestion(String Question) {
+        public void setQuestion(String question) {
             this.question = HtmlUtils.htmlUnescape(question);
         }
 

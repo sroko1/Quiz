@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import pl.sroks.quiz.dto.CategoriesDto;
+import pl.sroks.quiz.dto.CategoryQuestionCountInfoDto;
 import pl.sroks.quiz.dto.QuestionsDto;
+import pl.sroks.quiz.frontend.Difficulty;
 import pl.sroks.quiz.frontend.GameOptions;
 
 import java.net.URI;
@@ -27,13 +29,25 @@ public class QuizDataService {
         return result.getCategories();
     }
 
+
+
     public List<QuestionsDto.QuestionDto> getQuizQuestions(GameOptions gameOptions) {
+        CategoryQuestionCountInfoDto categoryQuestionCount = getCategoryQuestionCount(gameOptions.getCategoryId());
+        int availableQuestionCount = categoryQuestionCount.getQuestionCountForDifficulty(gameOptions.getDifficulty());
+        if (availableQuestionCount >= gameOptions.getNumberOfQuestions()) {
+            return getQuizQuestions(gameOptions.getNumberOfQuestions(), gameOptions.getCategoryId(), gameOptions.getDifficulty());
+        } else {
+            return getQuizQuestions(availableQuestionCount, gameOptions.getCategoryId(), gameOptions.getDifficulty());
+        }
+    }
+
+    private List<QuestionsDto.QuestionDto> getQuizQuestions(int numberOfQuestions, int categoryId, Difficulty difficulty) {
         RestTemplate restTemplate = new RestTemplate();
 
         URI uri = UriComponentsBuilder.fromHttpUrl("https://opentdb.com/api.php")
-                .queryParam("amount", gameOptions.getNumberOfQuestions())
-                .queryParam("category", gameOptions.getCategoryId())
-                .queryParam("difficulty", gameOptions.getDifficulty().name().toLowerCase())
+                .queryParam("amount", numberOfQuestions)
+                .queryParam("category", categoryId)
+                .queryParam("difficulty", difficulty.name().toLowerCase())
                 .build().toUri();
         log.info("Quiz question retrieve URL: " + uri);
 
@@ -41,6 +55,18 @@ public class QuizDataService {
         assert result != null;
         log.info("Quiz questions: Open Trivia DB response code = " + result.getResponseCode() + ". Content: " + result.getResults());
         return result.getResults();
+    }
+
+    private CategoryQuestionCountInfoDto getCategoryQuestionCount(int categoryId) {
+        RestTemplate restTemplate = new RestTemplate();
+
+        URI uri = UriComponentsBuilder.fromHttpUrl("https://opentdb.com/api_count.php")
+                .queryParam("category", categoryId)
+                .build().toUri();
+        log.info("Quiz category question count retrieve URL: " + uri);
+        CategoryQuestionCountInfoDto result = restTemplate.getForObject(uri, CategoryQuestionCountInfoDto.class);
+        log.info("Quiz category question count content: " + result);
+        return result;
     }
 
 }

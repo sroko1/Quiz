@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import pl.sroks.quiz.database.entities.PlayerEntity;
 import pl.sroks.quiz.database.repositories.PlayerRepository;
+import pl.sroks.quiz.services.OngoingGameService;
 import pl.sroks.quiz.services.QuizDataService;
 
 import java.util.List;
