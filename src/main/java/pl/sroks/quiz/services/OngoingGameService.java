@@ -5,14 +5,19 @@ import lombok.Getter;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
+import pl.sroks.quiz.dto.CategoriesDto;
 import pl.sroks.quiz.dto.QuestionsDto;
+import pl.sroks.quiz.frontend.Difficulty;
 import pl.sroks.quiz.frontend.GameOptions;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@SessionScope
 @Log
 public class OngoingGameService {
     private GameOptions gameOptions;
@@ -69,5 +74,17 @@ public class OngoingGameService {
     public boolean proceedToNextQuestion() {
         currentQuestionsIndex++;
         return currentQuestionsIndex < questions.size();
+    }
+
+    public Difficulty getDifficulty() {
+        return gameOptions.getDifficulty();
+    }
+
+    public String getCategoryName() {
+        Optional<String> category = quizDataService.getQuizCategories().stream()
+                .filter(categoryDto -> categoryDto.getId() == gameOptions.getCategoryId())
+                .map(CategoriesDto.CategoryDto::getName)
+                .findAny();
+        return category.orElse(null);
     }
 }

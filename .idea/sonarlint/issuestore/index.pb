@@ -193,3 +193,6 @@ d
 4.idea/libraries/Maven__com_h2database_h2_1_4_200.xml,f\f\ffb3320e8c9f45b7209d5d55f8e20d520aaa496f
 ç
 ].idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_12_5.xml,3\8\389eceac8978f0f80e3ae519d53b69f7bc75b1a9
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302

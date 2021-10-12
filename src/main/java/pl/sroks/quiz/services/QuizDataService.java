@@ -22,6 +22,7 @@ public class QuizDataService {
     public List<CategoriesDto.CategoryDto> getQuizCategories() {
         RestTemplate restTemplate = new RestTemplate();
         CategoriesDto result = restTemplate.getForObject("https://opentdb.com/api_category.php", CategoriesDto.class);
+        assert result != null;
         log.info("Quiz categories: " + result.getCategories());
         return result.getCategories();
     }
@@ -37,7 +38,8 @@ public class QuizDataService {
         log.info("Quiz question retrieve URL: " + uri);
 
         QuestionsDto result = restTemplate.getForObject(uri, QuestionsDto.class);
-        log.info("Quiz questions: " + result.getResults());
+        assert result != null;
+        log.info("Quiz questions: Open Trivia DB response code = " + result.getResponseCode() + ". Content: " + result.getResults());
         return result.getResults();
     }
 
