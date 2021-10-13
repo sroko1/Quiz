@@ -1,18 +1,25 @@
 package pl.sroks.quiz.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import pl.sroks.quiz.frontend.Difficulty;
 
+
+
+@NoArgsConstructor
 public class CategoryQuestionCountInfoDto {
+
 
     @JsonProperty("category_id")
     private int categoryId;
 
     @JsonProperty("category_question_count")
     private CategoryQuestionCountDto categoryQuestionCount;
+
+    public CategoryQuestionCountInfoDto(int easyQuestionCount, int mediumQuestionCount, int hardQuestionCount) {
+        this.categoryQuestionCount = new CategoryQuestionCountDto(easyQuestionCount + mediumQuestionCount + hardQuestionCount,
+                easyQuestionCount, mediumQuestionCount, hardQuestionCount);
+    }
 
     public int getTotalQuestionCount() {
         return categoryQuestionCount.totalQuestionCount;
@@ -34,6 +41,8 @@ public class CategoryQuestionCountInfoDto {
     @NoArgsConstructor
     @Getter
     @ToString
+    @AllArgsConstructor
+
     public static class CategoryQuestionCountDto {
         @JsonProperty("total_question_count")
         private int totalQuestionCount;

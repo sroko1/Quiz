@@ -40,12 +40,13 @@
 
 <section id="options">
     <form action="#" th:action="@{/select}" th:object="${gameOptions}" method="post">
-        <div class="form-row">
+        <div class="form-row ">
+
             <div class="form-group">
                 <div class="form-group">
                     <h4>Difficulty:</h4>
                     <th:block th:each="difficulty : ${T(pl.sroks.quiz.frontend.Difficulty).values()}">
-                        <div class="form-check form-check-inline">
+                        <div class="form-check form-check-inline ">
                             <input class="form-check-input" type="radio" name="difficultyRadioOptions"
                                    th:id="'difficulty_' + ${difficulty}" th:value="${difficulty}" th:field="*{difficulty}">
                             <label class="form-check-label" th:for="'difficulty_' + ${difficulty}"
@@ -53,6 +54,7 @@
                         </div>
                     </th:block>
                 </div>
+
                 <div class="form-row">
                     <div class="form-group">
                         <h4>Category:</h4>
@@ -67,12 +69,17 @@
                         </th:block>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Play!</button>
+            </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Play!</button>
+                    </div>
+                </div>
                 <h4>Questions:</h4>
                 <label for="numberOfQuestionsInput">Number: </label>
                 <input class="form-control" name="numberOfQuestionsInput" id="numberOfQuestionsInput" th:field="*{numberOfQuestions}"
                        type="number" min="1" max="20" step="1"/>
-            </div>
+            
         </div>
     </form>
 </section>
